@@ -1,13 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 const User = require("./models/User");
 const Family = require("./models/Family");
 const Neighborhood = require("./models/Neighborhood");
 const authRoutes = require("./routes/auth");
 const { users, families, neighborhoods } = require("./seed/seedData");
 
-dotenv.config();
+// dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -32,11 +32,11 @@ const connectDBAndSeedData = async () => {
     console.log("Connected to MongoDB");
 
     // Seed data
-    // const [usersResult, familiesResult, neighborhoodsResult] = await Promise.all([
-    //   User.insertMany(users),
-    //   Family.insertMany(families),
-    //   Neighborhood.insertMany(neighborhoods),
-    // ]);
+    const [usersResult, familiesResult, neighborhoodsResult] = await Promise.all([
+      User.insertMany(users),
+      Family.insertMany(families),
+      Neighborhood.insertMany(neighborhoods),
+    ]);
     console.log("Seed data inserted");
   } catch (error) {
     console.error("Failed to connect to MongoDB:", error);

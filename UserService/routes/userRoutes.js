@@ -1,4 +1,5 @@
 const express = require("express");
+const isAuthenticated = require("../middlewares/auth");
 const validate = require("../middlewares/validate");
 const {
   getUser,
@@ -10,15 +11,21 @@ const userController = require("../controllers/userController");
 const router = express.Router();
 
 // User Data Routes
-router.route("/:userID").get(validate(getUser), userController.getUser);
+router
+  .route("/:userID")
+  .get(isAuthenticated, validate(getUser), userController.getUser);
 
 router
   .route("/:userID/family")
-  .get(validate(getUserFamily), userController.getUserFamily);
+  .get(isAuthenticated, validate(getUserFamily), userController.getUserFamily);
 
 // Neighborhood Data Route
 router
   .route("/neighborhoods/:neighborhoodID")
-  .get(validate(getNeighborhood), userController.getNeighborhood);
+  .get(
+    isAuthenticated,
+    validate(getNeighborhood),
+    userController.getNeighborhood
+  );
 
 module.exports = router;

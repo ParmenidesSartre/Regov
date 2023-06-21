@@ -5,12 +5,12 @@ const mongoSanitize = require("express-mongo-sanitize");
 const compression = require("compression");
 const userRoutes = require("./routes/userRoutes");
 const { errorConverter, errorHandler } = require("./middlewares/error");
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const morgan = require("morgan");
 
-dotenv.config();
+// dotenv.config();
 
 const app = express();
 
@@ -32,6 +32,7 @@ app.use(compression());
 
 // Log HTTP requests
 app.use(morgan("combined"));
+
 
 // Limit number of requests to prevent brute-force attacks
 const limiter = rateLimit({

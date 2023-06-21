@@ -1,0 +1,20 @@
+{
+  "name": "regov-assessment",
+  "version": "1.0.0",
+  "description": "To satisfy the requirement we can create two microservices: one for handling user authentication and authorization called AuthService, and another for fetching the user biography, family, and neighborhood data called DataService. Both microservices will connect to the same MongoDB database.",
+  "main": "index.js",
+  "scripts": {
+    "dev" : "docker-compose up --build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ParmenidesSartre/Regov.git"
+  },
+  "author": "Mohd Faizal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ParmenidesSartre/Regov/issues"
+  },
+  "homepage": "https://github.com/ParmenidesSartre/Regov#readme"
+}
+
