@@ -29,7 +29,8 @@ To satisfy the requirement we can create two microservices: one for handling use
   - Enables sharing of secret keys for token validation across services, ensuring secure and unified session handling.
  
 ### How should the design evolved
-These are some future design evolution that I envision.
+These are some future design evolution that I envision:
+
 **1. Database per Service:**
    - Enhances service independence and reduces risk of data conflicts.
    - Needed as your system complexity and database load increase.
