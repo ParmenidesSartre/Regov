@@ -25,7 +25,7 @@
 
 - [**UserService Microservice**](#userservice-microservice)
 
-### Requirements
+## Requirements
 As the requirement is a bit vague, this is what i understand from the description. If this is a real development process, there will be a lot of back and forth to better understand the requirement. But due to the time constraint, this is what i understand.
 1. Implement field selection functionality in the User Biography endpoint to enable users to customize the data they retrieve.
 
@@ -37,7 +37,7 @@ As the requirement is a bit vague, this is what i understand from the descriptio
 
 5. Secure all API endpoints to prevent unauthorized access or misuse. This could involve measures such as implementing access tokens or JWT for API requests.
 
-### Designing the Solution
+## Designing the Solution
 
 To fulfill these requirements, our approach encompasses the creation of two distinct microservices: `AuthService` and `UserService`. The former will take charge of user authentication and authorization, whereas the latter will retrieve user-specific information such as biography, family, and neighborhood data. Both these microservices will interface with a common MongoDB database to maintain a cohesive data state.
 
@@ -54,12 +54,12 @@ Following this overarching structure, we will meet each requirement in the follo
 5. **API Security:** All exposed API endpoints will be secured against unauthorized access or misuse. We will leverage security strategies such as access tokens or JWTs to authenticate and validate API requests. This level of security will be a shared responsibility of both `AuthService` and `UserService`.
 
 
-### How to run the code
+## How to run the code
 1. Clone the repository.
 2. Install docker desktop if you don't have it already.
 3. At the root of the repository, run `npm run dev`.
 
-### Justifications for the design
+## Justifications for the design
 - **Microservices Architecture**:
   - Each microservice has a clear, specific role, promoting separation of concerns.
   - Each service can be developed, deployed, and scaled independently, enhancing scalability and flexibility.
@@ -84,7 +84,7 @@ Following this overarching structure, we will meet each requirement in the follo
 - **Shared .env file with Docker Compose**:
   - Enables sharing of secret keys for token validation across services, ensuring secure and unified session handling.
  
-### How should the design evolved
+## How should the design evolved
 These are some future design evolution that I envision:
 
 **1. Database per Service:**
@@ -107,7 +107,7 @@ These are some future design evolution that I envision:
    - Allows quicker development iterations and reliable deployments.
    - Important as your development team expands and deployment frequency increases.
 
-### Security Measures
+## Security Measures
 
 1. **HTTP Headers Security (helmet):** `helmet` is a middleware that sets various HTTP headers to help protect the application from well-known web vulnerabilities. It includes security features like DNS Prefetch Control, Frameguard to prevent clickjacking, Hide Powered-By to remove the `X-Powered-By` header, HSTS to keep users on HTTPS, and more.
 
@@ -127,11 +127,11 @@ These are some future design evolution that I envision:
 
 9. **404 Handler:** A catch-all route that returns a `404 Not Found` error for any requests that don't match defined routes. This avoids exposing any details about the filesystem or possible endpoints.
 
-### Schema Design
+## Schema Design
 
 ![alt text](https://github.com/ParmenidesSartre/Regov/blob/main/schema.png)
 
-### AuthService Microservice
+## AuthService Microservice
 
 Routes:
 
@@ -164,7 +164,7 @@ Routes:
     
     Returns an access token upon successful login. The access token should be used to authenticate requests to the UserService microservice.  
 
-### UserService Microservice
+## UserService Microservice
 
 Routes:
 
