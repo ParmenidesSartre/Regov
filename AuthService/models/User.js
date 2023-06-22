@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
     index: true,
   },
   biography: String,
-  neighborhoodID: {
+  neighborhood: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Neighborhood",
   },

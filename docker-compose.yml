@@ -8,6 +8,8 @@ services:
       - mongodb
     environment:
       MONGO_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/${MONGO_INITDB_DATABASE}?authSource=admin
+      JWT_SECRET: ${JWT_SECRET}
+      PORT : ${PORT}
   user-service:
     build: ./UserService
     ports:
@@ -16,6 +18,8 @@ services:
       - mongodb
     environment:
       MONGO_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/${MONGO_INITDB_DATABASE}?authSource=admin
+      JWT_SECRET: ${JWT_SECRET}
+      PORT : ${PORT}
   mongodb:
     image: 'mongo:latest'
     environment:

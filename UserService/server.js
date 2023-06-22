@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const app = require("./app");
 
 const port = process.env.PORT || 5000;
-const mongoURI = process.env.MONGO_URI || "mongodb://localhost/mydatabase";
+const mongoURI = "mongodb+srv://Parmenides:qLp59VvQYywpbtKT@cluster0.pce3c.mongodb.net"
 
 let server;
 // Connect to MongoDB

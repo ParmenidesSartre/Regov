@@ -5,12 +5,8 @@ const mongoSanitize = require("express-mongo-sanitize");
 const compression = require("compression");
 const userRoutes = require("./routes/userRoutes");
 const { errorConverter, errorHandler } = require("./middlewares/error");
-// const dotenv = require("dotenv");
-const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const morgan = require("morgan");
-
-// dotenv.config();
 
 const app = express();
 

@@ -3,6 +3,11 @@
 ### How to satisfy the requirement
 To satisfy the requirement we can create two microservices: one for handling user authentication and authorization called AuthService, and another for fetching the user biography, family, and neighborhood data called DataService. Both microservices will connect to the same MongoDB database.
 
+### How to run the code
+1. Clone the repository.
+2. Install docker desktop if you don't have it already.
+3. At the root of the repository, run `npm run dev`.
+
 ### Justifications for the design
 - **Microservices Architecture**:
   - Each microservice has a clear, specific role, promoting separation of concerns.
@@ -50,6 +55,10 @@ These are some future design evolution that I envision:
 **5. CI/CD Integration:**
    - Allows quicker development iterations and reliable deployments.
    - Important as your development team expands and deployment frequency increases.
+
+### Schema Design
+
+![alt text](http://url/to/img.png)
  
 ### AuthService Microservice
 

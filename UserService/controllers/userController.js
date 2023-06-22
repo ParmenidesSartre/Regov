@@ -9,8 +9,9 @@ exports.getUser = catchAsync(async (req, res) => {
   const fields = req.query.fields ? req.query.fields.split(",") : [];
 
   const user = await User.findById(userID)
-    .select(fields.join(" "))
-    .populate("neighborhood");
+    .populate("neighborhood")
+    .select(fields.join(" "));
+
   if (!user) {
     return res.status(httpStatus.NOT_FOUND).json({
       success: false,
@@ -41,11 +42,14 @@ exports.getUserFamily = catchAsync(async (req, res) => {
     });
   }
 
-  // Use Family model to find all relatives for the user.
   const relatives = await Family.find({ userID: user._id }).populate({
     path: "relativeID",
-    select: fields.join(" "),
+    select: fields.length ? fields.join(" ") : undefined,
     model: "User",
+    populate:
+      !fields.length || fields.includes("neighborhood")
+        ? { path: "neighborhood", model: "Neighborhood" }
+        : null,
   });
 
   // No relatives found.
