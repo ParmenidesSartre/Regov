@@ -22,7 +22,7 @@
 
 - [**UserService Microservice**](#userservice-microservice)
 
-### Question 2
+## Question 2
 - [**Answer**](#answer)
 
 
@@ -186,6 +186,57 @@ All access to protected route is authorized through middleware that share the sa
 
 ## Answer
 
-You can find the answer to the question in the `answer.md` file.
+```python
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def preorder_traversal(node):
+    if node is None:
+        return
+
+    print(node.value, end=" ")
+    preorder_traversal(node.left)
+    preorder_traversal(node.right)
+
+def inorder_traversal(node):
+    if node is None:
+        return
+
+    inorder_traversal(node.left)
+    print(node.value, end=" ")
+    inorder_traversal(node.right)
+
+def postorder_traversal(node):
+    if node is None:
+        return
+
+    postorder_traversal(node.left)
+    postorder_traversal(node.right)
+    print(node.value, end=" ")
+
+# Example usage:
+# Constructing a binary tree
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(5)
+
+# Traversing the tree
+print("Preorder traversal:")
+preorder_traversal(root)
+print("\n")
+
+print("Inorder traversal:")
+inorder_traversal(root)
+print("\n")
+
+print("Postorder traversal:")
+postorder_traversal(root)
+print("\n")
+```
 
 
