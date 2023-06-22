@@ -58,7 +58,7 @@ These are some future design evolution that I envision:
 
 ### Schema Design
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/ParmenidesSartre/Regov/blob/main/schema.png)
  
 ### AuthService Microservice
 
