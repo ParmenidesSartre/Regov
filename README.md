@@ -1,5 +1,30 @@
 # Regov Assessment
 
+
+### Table of Contents
+- **Requirements**
+   1. [Flexible Data Retrieval](#flexible-data-retrieval)
+   2. [Family Data Fetching](#family-data-fetching)
+   3. [Access Control](#access-control)
+   4. [Robust Error Handling](#robust-error-handling)
+   5. [API Security](#api-security)
+
+- [**Designing the Solution**](#designing-the-solution)
+
+- [**Running the Project**](#how-to-run-the-code)
+
+- [**Justifications for the Design**](#justifications-for-the-design)
+
+- [**Design Evolution**](#how-should-the-design-evolve)
+
+- [**Security Measures**](#security-measures)
+
+- [**Schema Design**](#schema-design)
+
+- [**AuthService Microservice**](#authservice-microservice)
+
+- [**UserService Microservice**](#userservice-microservice)
+
 ### Requirements
 As the requirement is a bit vague, this is what i understand from the description. If this is a real development process, there will be a lot of back and forth to better understand the requirement. But due to the time constraint, this is what i understand.
 1. Implement field selection functionality in the User Biography endpoint to enable users to customize the data they retrieve.
