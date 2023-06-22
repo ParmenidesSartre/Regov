@@ -1,7 +1,33 @@
 # Regov Assessment
 
-### How to satisfy the requirement
-To satisfy the requirement we can create two microservices: one for handling user authentication and authorization called AuthService, and another for fetching the user biography, family, and neighborhood data called DataService. Both microservices will connect to the same MongoDB database.
+### Requirements
+As the requirement is a bit vague, this is what i understand from the description. If this is a real development process, there will be a lot of back and forth to better understand the requirement. But due to the time constraint, this is what i understand.
+1. Implement field selection functionality in the User Biography endpoint to enable users to customize the data they retrieve.
+
+2. Use the selected fields as query parameters to fetch related family data from the database.
+
+3. Implement authentication and authorization mechanisms to limit system access to authorized users, which include residents and authorities.
+
+4. Include robust error handling within the system to prevent data leakage and unauthorized access during system failures.
+
+5. Secure all API endpoints to prevent unauthorized access or misuse. This could involve measures such as implementing access tokens or JWT for API requests.
+
+### Designing the Solution
+
+To fulfill these requirements, our approach encompasses the creation of two distinct microservices: `AuthService` and `DataService`. The former will take charge of user authentication and authorization, whereas the latter will retrieve user-specific information such as biography, family, and neighborhood data. Both these microservices will interface with a common MongoDB database to maintain a cohesive data state.
+
+Following this overarching structure, we will meet each requirement in the following manner:
+
+1. **Flexible Data Retrieval:** The `DataService` will include an endpoint for User Biography that allows field-level selection. This provides users with the flexibility to choose and retrieve only the data they require.
+
+2. **Family Data Fetching:** The fields selected by the user will serve as query parameters to locate and fetch related family data from the MongoDB database. This functionality will be incorporated within the `DataService`.
+
+3. **Access Control:** The `AuthService` will implement robust authentication and authorization methods to ensure that only authorized residents and authorities have access to the system.
+
+4. **Robust Error Handling:** Both microservices will include comprehensive error handling to prevent data leaks and unauthorized access during system failures, ensuring data integrity and system reliability.
+
+5. **API Security:** All exposed API endpoints will be secured against unauthorized access or misuse. We will leverage security strategies such as access tokens or JWTs to authenticate and validate API requests. This level of security will be a shared responsibility of both `AuthService` and `DataService`.
+
 
 ### How to run the code
 1. Clone the repository.
@@ -73,7 +99,7 @@ Routes:
       "name": String,
       "email": String,
       "biography": String,
-      "neighborhoodID": ObjectId,
+      "neighborhood": ObjectId,
       "role": String
     }
     
@@ -91,9 +117,7 @@ Routes:
     
     ```
     
-    Returns an access token upon successful login. The access token should be used to authenticate requests to the DataService microservice.
-    
-3. GET `/auth/verify`: Verify the access token, usually used by the DataService microservice to check if a request is authorized. The access token should be passed via an Authorization header.
+    Returns an access token upon successful login. The access token should be used to authenticate requests to the DataService microservice.  
 
 ### DataService Microservice
 
@@ -102,3 +126,5 @@ Routes:
 1. GET `/data/user/:userID`: Get user biography data for the user with the specified userID. The access token should be passed via an Authorization header. Users can only view their own record and authorities can view any records.
 2. GET `/data/user/:userID/family`: Get family data for the user with the specified userID. The access token should be passed via an Authorization header. 
 3. GET `/data/neighborhood/:neighborhoodID`: Get neighborhood data for the specified neighborhoodID. The access token should be passed via an Authorization header.
+
+All access to protected route is authorized through middleware that share the same environment through docker compose.
