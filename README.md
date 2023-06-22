@@ -52,7 +52,15 @@ Following this overarching structure, we will meet each requirement in the follo
 ## How to run the code
 1. Clone the repository.
 2. Install docker desktop if you don't have it already.
-3. At the root of the repository, run `npm run dev`.
+3. Create a `.env` file in the root of the repository and add the following variables:
+```
+PORT = 3000
+JWT_SECRET = secret_key
+MONGO_INITDB_ROOT_USERNAME = Parmenides
+MONGO_INITDB_ROOT_PASSWORD = qLp59VvQYywpbtKT
+MONGO_INITDB_DATABASE = data
+```
+4. At the root of the repository, run `npm run dev` which will create and run the docker container.
 
 ## Justifications for the design
 - **Microservices Architecture**:
