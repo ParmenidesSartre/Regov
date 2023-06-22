@@ -2,12 +2,7 @@
 
 
 ### Table of Contents
-- **Requirements**
-   1. [Flexible Data Retrieval](#flexible-data-retrieval)
-   2. [Family Data Fetching](#family-data-fetching)
-   3. [Access Control](#access-control)
-   4. [Robust Error Handling](#robust-error-handling)
-   5. [API Security](#api-security)
+- **Requirements**(#requirements)
 
 - [**Designing the Solution**](#designing-the-solution)
 
