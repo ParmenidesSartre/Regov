@@ -14,19 +14,19 @@ As the requirement is a bit vague, this is what i understand from the descriptio
 
 ### Designing the Solution
 
-To fulfill these requirements, our approach encompasses the creation of two distinct microservices: `AuthService` and `DataService`. The former will take charge of user authentication and authorization, whereas the latter will retrieve user-specific information such as biography, family, and neighborhood data. Both these microservices will interface with a common MongoDB database to maintain a cohesive data state.
+To fulfill these requirements, our approach encompasses the creation of two distinct microservices: `AuthService` and `UserService`. The former will take charge of user authentication and authorization, whereas the latter will retrieve user-specific information such as biography, family, and neighborhood data. Both these microservices will interface with a common MongoDB database to maintain a cohesive data state.
 
 Following this overarching structure, we will meet each requirement in the following manner:
 
-1. **Flexible Data Retrieval:** The `DataService` will include an endpoint for User Biography that allows field-level selection. This provides users with the flexibility to choose and retrieve only the data they require.
+1. **Flexible Data Retrieval:** The `UserService` will include an endpoint for User Biography that allows field-level selection. This provides users with the flexibility to choose and retrieve only the data they require.
 
-2. **Family Data Fetching:** The fields selected by the user will serve as query parameters to locate and fetch related family data from the MongoDB database. This functionality will be incorporated within the `DataService`.
+2. **Family Data Fetching:** The fields selected by the user will serve as query parameters to locate and fetch related family data from the MongoDB database. This functionality will be incorporated within the `UserService`.
 
 3. **Access Control:** The `AuthService` will implement robust authentication and authorization methods to ensure that only authorized residents and authorities have access to the system.
 
 4. **Robust Error Handling:** Both microservices will include comprehensive error handling to prevent data leaks and unauthorized access during system failures, ensuring data integrity and system reliability.
 
-5. **API Security:** All exposed API endpoints will be secured against unauthorized access or misuse. We will leverage security strategies such as access tokens or JWTs to authenticate and validate API requests. This level of security will be a shared responsibility of both `AuthService` and `DataService`.
+5. **API Security:** All exposed API endpoints will be secured against unauthorized access or misuse. We will leverage security strategies such as access tokens or JWTs to authenticate and validate API requests. This level of security will be a shared responsibility of both `AuthService` and `UserService`.
 
 
 ### How to run the code
@@ -45,9 +45,9 @@ Following this overarching structure, we will meet each requirement in the follo
    - Although the ideal scenario in a microservices architecture is to follow the database-per-service pattern for independent evolution of services, due to assesment time constraints, I have decided to use a shared MongoDB database across the microservices.
    - The choice of NoSQL over SQL allows us to prioritize system scalability, distributed data management, and potential for future service independence.
     
-- **AuthService and DataService**:
+- **AuthService and UserService**:
   - AuthService manages user authentication and authorization, ensuring secure access control.
-  - DataService fetches user-specific information, functioning independently from AuthService, which eliminates the need for inter-service communication.
+  - UserService fetches user-specific information, functioning independently from AuthService, which eliminates the need for inter-service communication.
 
 - **Shared MongoDB Database**:
   - Both microservices connect to the same MongoDB database, ensuring data consistency and integrity across services.
@@ -82,10 +82,30 @@ These are some future design evolution that I envision:
    - Allows quicker development iterations and reliable deployments.
    - Important as your development team expands and deployment frequency increases.
 
+### Security Measures
+
+1. **HTTP Headers Security (helmet):** `helmet` is a middleware that sets various HTTP headers to help protect the application from well-known web vulnerabilities. It includes security features like DNS Prefetch Control, Frameguard to prevent clickjacking, Hide Powered-By to remove the `X-Powered-By` header, HSTS to keep users on HTTPS, and more.
+
+2. **Cross-Site Scripting (XSS) Protection (xss):** `xss-clean` is a middleware that sanitizes user input coming into the application to prevent cross-site scripting attacks where malicious scripts are injected into trusted websites.
+
+3. **Data Sanitization (express-mongo-sanitize):** This middleware is used to prevent NoSQL injection, which can occur when an attacker injects code into the query that manipulates it. It works by eliminating prohibited characters from input coming into the API.
+
+4. **Data Compression (compression):** `compression` is a middleware that implements GZIP compression. This can help to reduce the size of the data being sent over the network, improving the speed of the response the client receives.
+
+5. **HTTP Request Logging (morgan):** `morgan` is a middleware that logs HTTP requests. This can be useful for debugging, but also allows for monitoring of any suspicious activities by tracking IP addresses and the endpoints they are hitting.
+
+6. **Rate Limiting (express-rate-limit):** This middleware limits the number of requests a single IP can make to the API within a given time frame. This is a simple way to prevent brute-force attacks, where an attacker attempts to submit many requests to guess a password, for instance.
+
+7. **Error Handling:** Custom error handling middleware (`errorConverter` and `errorHandler`) is used to ensure that errors are handled, and appropriate error messages are sent to the client. This avoids exposing sensitive details about the application.
+
+8. **Content Parsing (express.json and express.urlencoded):** These middlewares parse incoming request bodies and make it easier to work with in the application. They also help to prevent certain types of data-related security vulnerabilities.
+
+9. **404 Handler:** A catch-all route that returns a `404 Not Found` error for any requests that don't match defined routes. This avoids exposing any details about the filesystem or possible endpoints.
+
 ### Schema Design
 
 ![alt text](https://github.com/ParmenidesSartre/Regov/blob/main/schema.png)
- 
+
 ### AuthService Microservice
 
 Routes:
@@ -117,14 +137,15 @@ Routes:
     
     ```
     
-    Returns an access token upon successful login. The access token should be used to authenticate requests to the DataService microservice.  
+    Returns an access token upon successful login. The access token should be used to authenticate requests to the UserService microservice.  
 
-### DataService Microservice
+### UserService Microservice
 
 Routes:
 
-1. GET `/data/user/:userID`: Get user biography data for the user with the specified userID. The access token should be passed via an Authorization header. Users can only view their own record and authorities can view any records.
-2. GET `/data/user/:userID/family`: Get family data for the user with the specified userID. The access token should be passed via an Authorization header. 
-3. GET `/data/neighborhood/:neighborhoodID`: Get neighborhood data for the specified neighborhoodID. The access token should be passed via an Authorization header.
+1. GET `/user/:userID`: Get user biography data for the user with the specified userID. The access token should be passed via an Authorization header. Users can only view their own record and authorities can view any records.
+2. GET `/user/:userID/family`: Get family data for the user with the specified userID. The access token should be passed via an Authorization header. 
+3. GET `/neighborhood/:neighborhoodID`: Get neighborhood data for the specified neighborhoodID. The access token should be passed via an Authorization header.
 
 All access to protected route is authorized through middleware that share the same environment through docker compose.
+
