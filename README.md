@@ -36,7 +36,7 @@ As the requirement is a bit vague, this is what i understand from the descriptio
 
 4. Include robust error handling within the system to prevent data leakage and unauthorized access during system failures.
 
-5. Secure all API endpoints to prevent unauthorized access or misuse. This could involve measures such as implementing access tokens or JWT for API requests.
+5. Secure all API endpoints to prevent unauthorized access or misuse. This could involve measures such as implementing access tokens or JWT for API requests. Improvement should be done.
 
 ## Designing the Solution
 
